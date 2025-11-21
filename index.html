@@ -1,29 +1,49 @@
+<!DOCTYPE html>
 <html>
-    <body>
-        Hello HTW
+<head>
+  <meta charset="UTF-8">
+  <title>HTW Demo</title>
+</head>
+<body>
+  <h1>Hello HTW</h1>
 
-        # add two input field s and a button
-        <form>
-            <input type="text" id="email" name="email" >
-            <input type="text" id="name" name="name" >
+  <form id="myForm">
+    <label>
+      Name:
+      <input type="text" id="nameInput" name="name" required>
+    </label>
+    <br><br>
+    <label>
+      Other:
+      <input type="text" id="otherInput" name="other">
+    </label>
+    <br><br>
+    <button type="submit">Submit</button>
+  </form>
 
-            <script>
-                document.querySelector('button').addEventListener('click', function() {
-                    const email = document.getElementById('email').value;
-                    const name = document.getElementById('name').value;
-                    const url = `https://f41ou5uot8.execute-api.eu-west-1.amazonaws.com/default/reka-ms?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
-                    
-                    fetch(url)
-                        .then(response => response.json())
-                        .then(data => console.log(data))
-                        .catch(error => console.error('Error:', error));
-                });
-            </script>
+  <p id="result"></p>
 
-            <button type="button">Submit</button>
-        </form> 
+  <script>
+    const form = document.getElementById('myForm');
+    const result = document.getElementById('result');
 
-    </body>
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
+      const name = document.getElementById('nameInput').value;
+      const other = document.getElementById('otherInput').value;
 
+      const url = `https://f41ou5uot8.execute-api.eu-west-1.amazonaws.com/default/reka-ms?name=${encodeURIComponent(name)}&other=${encodeURIComponent(other)}`;
+
+      try {
+        const res = await fetch(url, { method: 'GET' });
+        const text = await res.text();
+        result.textContent = `Response: ${text}`;
+      } catch (err) {
+        console.error(err);
+        result.textContent = 'Error calling API';
+      }
+    });
+  </script>
+</body>
 </html>
