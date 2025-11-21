@@ -1,16 +1,29 @@
 <html>
- <head>
- <script src="fetch.js"></script>
- </head>
- <body>
- <h2>Hello HTW</h2>
+    <body>
+        Hello HTW
 
- <p>enter a value</p>
- <input id="myvalue" type="text"/>
+        # add two input field s and a button
+        <form>
+            <input type="text" id="email" name="email" >
+            <input type="text" id="name" name="name" >
 
- <p class="content"></p>
+            <script>
+                document.querySelector('button').addEventListener('click', function() {
+                    const email = document.getElementById('email').value;
+                    const name = document.getElementById('name').value;
+                    const url = `https://f41ou5uot8.execute-api.eu-west-1.amazonaws.com/default/reka-ms?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
+                    
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => console.log(data))
+                        .catch(error => console.error('Error:', error));
+                });
+            </script>
 
- <button id="button">Content von meiner Lambda</button>
+            <button type="button">Submit</button>
+        </form> 
 
- </body>
+    </body>
+
+
 </html>
