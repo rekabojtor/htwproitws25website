@@ -33,7 +33,7 @@
       const name = document.getElementById('nameInput').value;
       const other = document.getElementById('otherInput').value;
 
-      const url = `https://f41ou5uot8.execute-api.eu-west-1.amazonaws.com/default/reka-ms?name=${encodeURIComponent(name)}&other=${encodeURIComponent(other)}`;
+      const url = `https://c6ldanx8rl.execute-api.eu-west-1.amazonaws.com/default/reka-db-lamda?name=${encodeURIComponent(name)}&other=${encodeURIComponent(other)}`;
 
       try {
         const res = await fetch(url, { method: 'GET' });
